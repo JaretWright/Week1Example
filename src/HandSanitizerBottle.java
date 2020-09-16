@@ -1,3 +1,6 @@
+import java.util.Arrays;
+import java.util.List;
+
 public class HandSanitizerBottle {
     private String brand;
     private int bottleVolume;
@@ -10,6 +13,7 @@ public class HandSanitizerBottle {
         setBrand(brand);
         setBottleMaterial(bottleMaterial);
         setAlcoholContent(alcoholContent);
+        setAmountInBottle(this.bottleVolume);
     }
 
     public String getBrand() {
@@ -44,7 +48,12 @@ public class HandSanitizerBottle {
     }
 
     public void setBottleMaterial(String bottleMaterial) {
-        this.bottleMaterial = bottleMaterial;
+        List<String> validTypes = Arrays.asList("plastic", "glass", "metal");
+
+        if (validTypes.contains(bottleMaterial))
+            this.bottleMaterial = bottleMaterial;
+        else
+            throw new IllegalArgumentException("valid bottle types are:" + validTypes);
     }
 
     public double getAlcoholContent() {
@@ -52,7 +61,10 @@ public class HandSanitizerBottle {
     }
 
     public void setAlcoholContent(double alcoholContent) {
-        this.alcoholContent = alcoholContent;
+        if (alcoholContent>=0 && alcoholContent<=100)
+            this.alcoholContent = alcoholContent;
+        else
+            throw new IllegalArgumentException("alcohol content must be 0-100");
     }
 
     public int getAmountInBottle() {
@@ -60,12 +72,15 @@ public class HandSanitizerBottle {
     }
 
     public void setAmountInBottle(int amountInBottle) {
-        this.amountInBottle = amountInBottle;
+        if (amountInBottle>=0 && amountInBottle<=bottleVolume)
+            this.amountInBottle = amountInBottle;
+        else
+            throw new IllegalArgumentException("amount in bottle must be 0-"+ bottleVolume);
     }
 
     public String toString()
     {
-        return String.format("%s holds %d ml", brand, bottleVolume);
+        return String.format("%13s holds %3d ml, alcohol %.1f%%", brand, bottleVolume, alcoholContent);
     }
 }
 
