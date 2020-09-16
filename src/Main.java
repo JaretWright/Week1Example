@@ -8,5 +8,16 @@ public class Main {
 
         System.out.println(bottle1);
         System.out.println(bottle2);
+
+        //trying out invalid inputs
+        try{
+            bottle2.setAmountInBottle(-20);
+        }
+        catch (IllegalArgumentException e)
+        {
+            System.out.printf("%nThe exception generated when trying to put -20 for " +
+                    "the amount in the bottle:%n'%s'%n",e.getMessage());
+        }
+
     }
 }
